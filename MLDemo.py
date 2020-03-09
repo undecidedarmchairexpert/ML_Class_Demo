@@ -43,7 +43,7 @@ X_data = images / 255.0
 Y = targets
 
 # Split dataset into training and testing sets
-X_train, X_test, y_train, Y_test = train_test_split(X_data, Y, test_size=0.15, random_state=42)
+X_train, X_test, Y_train, Y_test = train_test_split(X_data, Y, test_size=0.15, random_state=42)
 
 # Create classifier object
 model = svm.SVC(C=5, gamma=0.05)
@@ -53,7 +53,7 @@ start = datetime.datetime.now()
 print('Start learning at {}'.format(str(start)))
 
 # Train model
-model.fit(X_train, y_train)
+model.fit(X_train, Y_train)
 
 # Calculate training time
 elapsed_time = datetime.datetime.now() - start
@@ -65,6 +65,9 @@ modeledData = model.predict(X_test)
 
 # Print examples of predicted test data
 printDigitExamples(X_test, modeledData, "Prediction Example", title_text="Predicted {}")
+
+# Generate confusion matrix
+cm = metrics.confusion_matrix(Y_test, modeledData)
 
 # Plot accuracy for each number in XKCD graph
 numberAccuracy = list()
